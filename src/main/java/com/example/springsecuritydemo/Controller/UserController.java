@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +31,12 @@ public class UserController {
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUserList(){
         return ResponseEntity.ok(userService.getUserList());
+    }
+
+    @GetMapping("refresh")
+    public ResponseEntity<?> refreshToken(HttpServletRequest request, HttpServletResponse response){
+        userService.refreshToken(request,response);
+        return ResponseEntity.ok(null);
     }
 
 }
